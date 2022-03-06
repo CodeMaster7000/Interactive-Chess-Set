@@ -1,0 +1,68 @@
+$setColor: #2196f3;
+$pieceColor1: #000;
+$pieceColor2: #fff;
+html, body { margin: 0; }
+.chess {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	max-width: 90vh;
+	max-height: 90vh;
+	@media (max-width: 100vh) {
+		max-width: 90vw;
+		max-height: 90vw;
+	}
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	.set {
+		border-radius: 3%;
+		overflow: hidden;
+		.fa-chess-board {
+			background-color: lighten($setColor,10%);
+			color: darken($setColor,10%);
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+		}
+		.pieces {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 1;
+			[class*="fa-"] {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				max-width: calc((1 / 8) * 100%);
+				max-height: calc((1 / 8) * 100%);
+				padding: 2%;
+				box-sizing: border-box;
+				z-index: 1;
+				cursor: pointer;
+				transition: all 0.1s ease-in-out;
+				transform: scale(1);
+				&:hover {
+					transform: scale(1.2);
+				}
+				&.fas { top: 0; }
+				@for $i from 1 through 16 {
+					&:nth-child(#{$i}) {
+						color: $pieceColor1;
+						left: #{((($i - 1) % 8) / 8) * 100%};
+						top: #{((floor(($i - 1) / 8)) / 8) * 100%};
+					}
+				}
+				@for $i from 17 through 32 {
+					&:nth-child(#{$i}) {
+						color: $pieceColor2;
+						left: #{(((($i - 16) - 1) % 8) / 8) * 100%};
+						bottom: #{((floor((($i - 16) - 1) / 8)) / 8) * 100%};
+					}
+				}
+			}
+		}
+	}
+}
